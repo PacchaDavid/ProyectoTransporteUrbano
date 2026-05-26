@@ -1,0 +1,34 @@
+{% extends "./base.html" %}
+{% block title %}Editar Bus{% endblock %}
+{% block header_title %}SITU | Editar Unidad de Bus{% endblock %}
+
+{% block body %}
+<div class="row">
+    <div class="col-lg-8 col-xl-6 mx-auto">
+        <div class="card shadow-lg">
+            <h3 class="card-title pb-3 mb-3 border-bottom">
+                <i class="bi bi-pencil-square text-primary"></i> Modificar Datos de Bus
+            </h3>
+            
+            <form method="post">
+                {% csrf_token %}
+                
+                <div class="form-fields">
+                    {{ form.as_p }}
+                </div>
+                
+                <hr class="border-color my-4">
+                
+                <div class="d-flex justify-content-end align-items-center" style="gap: 12px;">
+                    <a href="{% url 'buses' %}" class="btn btn-secondary">
+                        <i class="bi bi-x-circle"></i> Cancelar
+                    </a>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="bi bi-check-circle-fill"></i> Guardar Cambios
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

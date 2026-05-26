@@ -1,0 +1,65 @@
+{% extends "./base.html" %}
+{% block title %}Tarjetas{% endblock %}
+{% block header_title %}SITU | Control de Tarjetas{% endblock %}
+
+{% block body %}
+<div class="card">
+    <div class="d-flex flex-column flex-sm-row justify-content-between align-items-sm-center mb-4">
+        <h3 class="card-title m-0">
+            <i class="bi bi-credit-card-2-back-fill text-primary"></i> Tarjetas de Acceso SITU
+        </h3>
+        <a href="{% url 'tarjetasCrear' %}" class="btn btn-success mt-3 mt-sm-0">
+            <i class="bi bi-credit-card-fill"></i> Agregar Tarjeta
+        </a>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th><i class="bi bi-hash mr-1"></i> Código Tarjeta</th>
+                    <th><i class="bi bi-currency-dollar mr-1"></i> Saldo Disponible</th>
+                    <th><i class="bi bi-person mr-1"></i> Propietario / Pasajero</th>
+                    <th class="text-center">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for t in tarjetas %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td class="font-weight-bold" style="color: var(--color-info);">
+                        <code>{{ t.codigo }}</code>
+                    </td>
+                    <td class="font-weight-bold">
+                        <span class="badge {% if t.monto|add:0 > 0 %}badge-success{% else %}badge-danger{% endif %} px-3 py-2" style="font-size: 13px;">
+                            ${{ t.monto }} USD
+                        </span>
+                    </td>
+                    <td>
+                        <i class="bi bi-person-fill text-muted mr-1"></i>
+                        {{ t.idPasajero.nombre }} {{ t.idPasajero.apellido }}
+                    </td>
+                    <td>
+                        <div class="d-flex justify-content-center align-items-center gap-2" style="gap: 8px;">
+                            <a href="{% url 'tarjetasEdit' t.id %}" class="btn btn-primary btn-sm" title="Editar Tarjeta">
+                                <i class="bi bi-pencil-square"></i> <span class="d-none d-md-inline">Editar</span>
+                            </a>
+                            <a href="{% url 'tarjetasDelete' t.id %}" class="btn btn-danger btn-sm" title="Eliminar Tarjeta">
+                                <i class="bi bi-trash-fill"></i> <span class="d-none d-md-inline">Eliminar</span>
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5" class="text-center py-4 text-secondary">
+                        <i class="bi bi-info-circle mr-2"></i> No se encontraron tarjetas registradas.
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,69 @@
+{% extends "./base.html" %}
+{% block title %}Pasajeros{% endblock %}
+{% block header_title %}SITU | Control de Pasajeros{% endblock %}
+
+{% block body %}
+<div class="card">
+    <div class="d-flex flex-column flex-sm-row justify-content-between align-items-sm-center mb-4">
+        <h3 class="card-title m-0">
+            <i class="bi bi-people-fill text-primary"></i> Listado de Pasajeros Registrados
+        </h3>
+        <a href="{% url 'pasajerosCrear' %}" class="btn btn-success mt-3 mt-sm-0">
+            <i class="bi bi-person-plus-fill"></i> Agregar Pasajero
+        </a>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Foto</th>
+                    <th>Cédula</th>
+                    <th>Nombre Completo</th>
+                    <th>Correo Electrónico</th>
+                    <th class="text-center">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for e in pasajeros %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>
+                        {% if e.imagen %}
+                        <img src="{{ e.imagen.url }}" alt="Foto de {{ e.nombre }}" class="passenger-avatar">
+                        {% else %}
+                        <div class="d-inline-flex align-items-center justify-content-center bg-secondary text-muted rounded-circle" style="width: 48px; height: 48px; border: 2px solid var(--border-color);">
+                            <i class="bi bi-person-fill" style="font-size: 20px;"></i>
+                        </div>
+                        {% endif %}
+                    </td>
+                    <td class="font-weight-bold">{{ e.cedula }}</td>
+                    <td>{{ e.nombre }} {{ e.apellido }}</td>
+                    <td>{{ e.email }}</td>
+                    <td>
+                        <div class="d-flex justify-content-center align-items-center gap-2" style="gap: 8px;">
+                            <a href="{% url 'historial_pasajero' e.id %}" class="btn btn-info btn-sm" title="Ver Historial de Viajes">
+                                <i class="bi bi-clock-history"></i> <span class="d-none d-md-inline">Historial</span>
+                            </a>
+                            <a href="{% url 'pasajerosEdit' e.id %}" class="btn btn-primary btn-sm" title="Editar Pasajero">
+                                <i class="bi bi-pencil-square"></i> <span class="d-none d-md-inline">Editar</span>
+                            </a>
+                            <a href="{% url 'pasajerosDelete' e.id %}" class="btn btn-danger btn-sm" title="Eliminar Pasajero">
+                                <i class="bi bi-trash-fill"></i> <span class="d-none d-md-inline">Eliminar</span>
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="6" class="text-center py-4 text-secondary">
+                        <i class="bi bi-info-circle mr-2"></i> No se encontraron pasajeros registrados.
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock body %}

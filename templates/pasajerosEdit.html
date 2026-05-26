@@ -1,0 +1,41 @@
+{% extends "./base.html" %}
+{% block title %}Editar Pasajero{% endblock %}
+{% block header_title %}SITU | Editar Pasajero{% endblock %}
+
+{% block body %}
+<div class="row">
+    <div class="col-lg-8 col-xl-6 mx-auto">
+        <div class="card shadow-lg">
+            <h3 class="card-title pb-3 mb-3 border-bottom">
+                <i class="bi bi-pencil-square text-primary"></i> Modificar Datos de Pasajero
+            </h3>
+            
+            <form action="" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                
+                <div class="form-fields">
+                    {{ form.as_p }}
+                </div>
+                
+                {% if passenger.imagen or pasajero.imagen %}
+                <div class="mt-3 text-center">
+                    <p class="text-secondary mb-2" style="font-size: 13px;">Imagen Actual:</p>
+                    <img src="{% if passenger.imagen %}{{ passenger.imagen.url }}{% else %}{{ pasajero.imagen.url }}{% endif %}" alt="Imagen actual" class="passenger-avatar" style="width: 80px; height: 80px; border-width: 3px;">
+                </div>
+                {% endif %}
+                
+                <hr class="border-color my-4">
+                
+                <div class="d-flex justify-content-end align-items-center" style="gap: 12px;">
+                    <a href="{% url 'pasajeros' %}" class="btn btn-secondary">
+                        <i class="bi bi-x-circle"></i> Cancelar
+                    </a>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="bi bi-check-circle-fill"></i> Guardar Cambios
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock body %}

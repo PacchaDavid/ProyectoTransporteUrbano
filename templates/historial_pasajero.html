@@ -1,0 +1,82 @@
+{% extends "./base.html" %}
+{% block title %}Historial de {{ pasajero.nombre }}{% endblock %}
+{% block header_title %}SITU | Historial de Pasajero{% endblock %}
+
+{% block body %}
+<!-- Perfil del Pasajero -->
+<div class="card mb-4" style="background: linear-gradient(135deg, rgba(31, 41, 55, 0.9) 0%, rgba(17, 24, 39, 0.9) 100%); border-left: 4px solid var(--color-info);">
+    <div class="d-flex flex-column flex-md-row align-items-center gap-4" style="gap: 20px;">
+        <div>
+            {% if passenger.imagen %}
+            <img src="{{ passenger.imagen.url }}" alt="Foto de {{ pasajero.nombre }}" class="passenger-avatar" style="width: 80px; height: 80px; border-width: 3px;">
+            {% elif pasajero.imagen %}
+            <img src="{{ pasajero.imagen.url }}" alt="Foto de {{ pasajero.nombre }}" class="passenger-avatar" style="width: 80px; height: 80px; border-width: 3px;">
+            {% else %}
+            <div class="d-inline-flex align-items-center justify-content-center bg-secondary text-muted rounded-circle" style="width: 80px; height: 80px; border: 3px solid var(--border-color);">
+                <i class="bi bi-person-fill" style="font-size: 36px;"></i>
+            </div>
+            {% endif %}
+        </div>
+        <div class="text-center text-md-left flex-grow-1">
+            <h2 class="mb-1" style="font-family: 'Outfit', sans-serif; font-weight: 700;">
+                {{ pasajero.nombre }} {{ pasajero.apellido }}
+            </h2>
+            <div class="text-secondary" style="font-size: 14px;">
+                <span class="mr-3"><i class="bi bi-card-id mr-1"></i> Cédula: <strong>{{ pasajero.cedula }}</strong></span>
+                <span><i class="bi bi-envelope mr-1"></i> Correo: <strong>{{ pasajero.email }}</strong></span>
+            </div>
+        </div>
+        <div>
+            <a href="{% url 'pasajeros' %}" class="btn btn-secondary">
+                <i class="bi bi-arrow-left"></i> Volver a Pasajeros
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- Listado de Viajes -->
+<div class="card">
+    <h3 class="card-title">
+        <i class="bi bi-clock-history text-info"></i> Registro de Viajes Realizados
+    </h3>
+    
+    <div class="table-responsive">
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th><i class="bi bi-truck mr-1"></i> Bus / Placa</th>
+                    <th><i class="bi bi-currency-dollar mr-1"></i> Costo</th>
+                    <th><i class="bi bi-calculator-fill mr-1"></i> Cantidad</th>
+                    <th><i class="bi bi-calendar3 mr-1"></i> Fecha y Hora</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for v in viajes %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>
+                        <span class="badge badge-secondary px-3 py-2 font-weight-bold" style="background-color: var(--border-color); color: var(--text-primary);">
+                            <i class="bi bi-bus-front-fill mr-1 text-info"></i> {{ v.bus.placa }}
+                        </span>
+                    </td>
+                    <td class="font-weight-bold text-success">${{ v.costo }}</td>
+                    <td>
+                        <span class="badge badge-primary px-3 py-1 font-weight-bold" style="background: var(--gradient-primary); font-size: 13px;">
+                            {{ v.cantidad }}
+                        </span>
+                    </td>
+                    <td class="text-muted">{{ v.fecha_viaje|date:"d/m/Y H:i" }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5" class="text-center py-4 text-secondary">
+                        <i class="bi bi-info-circle mr-2"></i> Este pasajero no ha registrado ningún viaje.
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

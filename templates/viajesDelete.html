@@ -1,0 +1,40 @@
+{% extends "./base.html" %}
+{% block title %}Eliminar Viaje{% endblock %}
+{% block header_title %}SITU | Confirmar Eliminación{% endblock %}
+
+{% block body %}
+<div class="row">
+    <div class="col-lg-6 mx-auto">
+        <div class="card delete-card p-4">
+            <div class="delete-icon">
+                <i class="bi bi-exclamation-triangle-fill"></i>
+            </div>
+            
+            <h3 class="mb-3 text-danger" style="font-family: 'Outfit', sans-serif; font-weight: 700;">
+                ¿Eliminar Registro de Viaje?
+            </h3>
+            
+            <p class="text-secondary mb-4" style="font-size: 15px; line-height: 1.6;">
+                Está a punto de eliminar de forma permanente el viaje del pasajero: <br>
+                <strong class="text-white">{{ viaje.pasajero.nombre }} {{ viaje.pasajero.apellido }}</strong>.
+                <br>
+                Realizado en el bus con placa <strong class="text-white">{{ viaje.bus.placa }}</strong> el <strong class="text-white">{{ viaje.fecha_viaje|date:"d/m/Y H:i" }}</strong>.
+                <br><br>
+                <span class="text-danger font-weight-bold">Esta acción no se puede deshacer.</span>
+            </p>
+            
+            <form method="post">
+                {% csrf_token %}
+                <div class="d-flex justify-content-center" style="gap: 12px;">
+                    <a href="{% url 'viajes' %}" class="btn btn-secondary">
+                        <i class="bi bi-x-circle"></i> Cancelar
+                    </a>
+                    <button type="submit" class="btn btn-danger">
+                        <i class="bi bi-trash-fill"></i> Eliminar Definitivamente
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

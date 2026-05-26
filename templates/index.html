@@ -1,0 +1,107 @@
+{% extends "./base.html" %}
+{% block title %}Inicio{% endblock %}
+{% block header_title %}SITU | Panel de Control General{% endblock %}
+
+{% block body %}
+{% load static %}
+
+<!-- Hero/Bienvenida -->
+<div class="card mb-4" style="background: linear-gradient(135deg, rgba(31, 41, 55, 0.9) 0%, rgba(17, 24, 39, 0.9) 100%);">
+    <div class="row align-items-center">
+        <div class="col-lg-8">
+            <h2 class="mb-2 text-primary" style="font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 2.2rem;">
+                Sistema Integrado de Transporte Urbano (SITU Loja)
+            </h2>
+            <p class="text-secondary" style="font-size: 1.1rem; line-height: 1.6;">
+                Bienvenido al panel de administración y control del SITU Loja. Gestione de forma eficiente los pasajeros,
+                las tarjetas de acceso sin contacto, la flota de buses y el historial de viajes del transporte urbano de la ciudad.
+            </p>
+        </div>
+        <div class="col-lg-4 text-center mt-3 mt-lg-0">
+            <div class="p-3" style="background: rgba(255,255,255,0.03); border-radius: 20px; border: 1px solid rgba(255,255,255,0.05); display: inline-block;">
+                <img src="{% static 'logo.png' %}" alt="Logo SITU Loja" class="img-fluid" style="max-height: 120px; border-radius: 10px;">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Grid de Estadísticas / Secciones -->
+<h3 class="mb-3" style="font-family: 'Outfit', sans-serif; font-size: 1.4rem;">Módulos del Sistema</h3>
+<div class="stats-grid">
+    <!-- Pasajeros -->
+    <a href="{% url 'pasajeros' %}" class="stat-card">
+        <div class="stat-content">
+            <span class="stat-label">Pasajeros</span>
+            <span class="stat-value">Ver Lista</span>
+        </div>
+        <div class="stat-icon">
+            <i class="bi bi-people-fill"></i>
+        </div>
+    </a>
+
+    <!-- Tarjetas -->
+    <a href="{% url 'tarjetas' %}" class="stat-card">
+        <div class="stat-content">
+            <span class="stat-label">Tarjetas</span>
+            <span class="stat-value">Ver Lista</span>
+        </div>
+        <div class="stat-icon">
+            <i class="bi bi-credit-card-2-back-fill"></i>
+        </div>
+    </a>
+
+    <!-- Buses -->
+    <a href="{% url 'buses' %}" class="stat-card">
+        <div class="stat-content">
+            <span class="stat-label">Buses</span>
+            <span class="stat-value">Ver Lista</span>
+        </div>
+        <div class="stat-icon">
+            <i class="bi bi-truck"></i>
+        </div>
+    </a>
+
+    <!-- Viajes -->
+    <a href="{% url 'viajes' %}" class="stat-card">
+        <div class="stat-content">
+            <span class="stat-label">Viajes</span>
+            <span class="stat-value">Ver Lista</span>
+        </div>
+        <div class="stat-icon">
+            <i class="bi bi-map-fill"></i>
+        </div>
+    </a>
+</div>
+
+<!-- Accesos Rápidos -->
+<div class="card">
+    <h3 class="card-title">
+        <i class="bi bi-lightning-charge-fill text-warning"></i> Acciones Rápidas
+    </h3>
+    <div class="quick-actions">
+        <!-- Agregar Pasajero -->
+        <a href="{% url 'pasajerosCrear' %}" class="action-card text-decoration-none">
+            <i class="bi bi-person-plus-fill"></i>
+            <span>Registrar Pasajero</span>
+        </a>
+
+        <!-- Simular Pago -->
+        <a href="{% url 'simular_pago' %}" class="action-card text-decoration-none">
+            <i class="bi bi-wallet2 text-success"></i>
+            <span>Simular Pago de Pasaje</span>
+        </a>
+
+        <!-- Registrar Viaje -->
+        <a href="{% url 'viajesCrear' %}" class="action-card text-decoration-none">
+            <i class="bi bi-plus-square-fill text-info"></i>
+            <span>Registrar Nuevo Viaje</span>
+        </a>
+
+        <!-- Agregar Bus -->
+        <a href="{% url 'busesCrear' %}" class="action-card text-decoration-none">
+            <i class="bi bi-truck text-danger"></i>
+            <span>Agregar Nuevo Bus</span>
+        </a>
+    </div>
+</div>
+{% endblock body %}
