@@ -44,3 +44,4 @@ img/
 
 # Project specific
 /media/
+.env.prod
