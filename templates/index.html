@@ -102,6 +102,12 @@
             <i class="bi bi-truck text-danger"></i>
             <span>Agregar Nuevo Bus</span>
         </a>
+
+        <!-- Respaldo a la Nube (Cosmos DB) -->
+        <a href="{% url 'backup_to_cosmos' %}" class="action-card text-decoration-none" onclick="return confirm('¿Iniciar respaldo de pasajeros a Azure Cosmos DB?')">
+            <i class="bi bi-cloud-upload-fill text-primary"></i>
+            <span>Respaldo en la Nube</span>
+        </a>
     </div>
 </div>
 {% endblock body %}

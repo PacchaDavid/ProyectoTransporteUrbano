@@ -46,6 +46,7 @@ urlpatterns = [
     # Otros
     path('historial/pasajero/<id>', historial_pasajero, name='historial_pasajero'),
     path('simular_pago/', simular_pago, name='simular_pago'),
+    path('backup/', backup_to_cosmos_view, name='backup_to_cosmos'),
 ]
 
 if settings.DEBUG:

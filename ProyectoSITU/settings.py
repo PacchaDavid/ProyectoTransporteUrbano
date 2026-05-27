@@ -131,6 +131,12 @@ STATICFILES_DIRS = [
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
+# --- Azure Cosmos DB configuration ---
+COSMOS_URI = os.getenv('COSMOS_URI', '')
+COSMOS_KEY = os.getenv('COSMOS_KEY', '')
+COSMOS_DATABASE = os.getenv('COSMOS_DATABASE', 'dbrespaldo')
+COSMOS_CONTAINER = os.getenv('COSMOS_CONTAINER', 'situ_respaldo')
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

@@ -178,6 +178,18 @@ def historial_pasajero(request, id):
     return render(request, 'historial_pasajero.html', {'pasajero': pasajero, 'viajes': viajes})
 
 
+### Respaldo a Azure Cosmos DB
+def backup_to_cosmos_view(request):
+    from django.core.management import call_command
+    from io import StringIO
+    buf = StringIO()
+    try:
+        call_command('backup_to_cosmos', stdout=buf)
+        messages.success(request, f'Respaldo completado:\n{buf.getvalue()}')
+    except Exception as e:
+        messages.error(request, f'Error en respaldo: {e}')
+    return redirect('home')
+
 ### Simular pago
 def simular_pago(request):
     if request.method == 'POST':
